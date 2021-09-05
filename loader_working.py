@@ -3,8 +3,8 @@ import pandas as pd
 from globals import REGIONS
 
 db = pymongo.MongoClient("mongodb://localhost:27017/")
-db.drop_database("aws_spot_by_region")
-db = db.aws_spot_by_region
+db.drop_database("aws_spot")
+db = db.aws_spot
 
 def family_size(instance_type):
     family, size = instance_type.split(".")
