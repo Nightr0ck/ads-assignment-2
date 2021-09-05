@@ -12,25 +12,15 @@ for region in REGIONS:
 
     family_size_dict = {}
     for instance_type in df["instance_type"].unique():
-        instance_type_split = instance_type.split(".")
-        size_list = family_size_dict.get(instance_type_split[0], [])
-        size_list.append(instance_type_split[1])
-        family_size_dict[instance_type_split[0]] = size_list
-
-    for family_size in family_size_dict.items():
-        family = family_size[0]
-        sizes = family_size[1]
-
+        family, size = instance_type.split(".")
         db[region].insert_one({
             "family": family,
+            "size": size,
             "spot_instance": []
         })
-
-        for size in sizes:
-            db[region].update_one(
-                {"family": family},
-                {"$push": {"spot_instance": {"size": size, "listings": []}}}
-            )
+    
+    family_size_index = pymongo.IndexModel([("family", pymongo.ASCENDING), ("size", pymongo.ASCENDING)])
+    db[region].create_indexes([family_size_index])
     
 
     for index, row in df.iterrows():
@@ -40,10 +30,12 @@ for region in REGIONS:
         availability_zone = row["region"].split("-")[2]
         price = row["price"]
 
-        print(db[region].find(
-            {"family": family}
-            #{"$push": {"spot_instance.listings": {"date": date, "time": time, "os": os, "availability_zone": availability_zone, "price": price}}}
-        ).next())
+        print(index)
+
+        db[region].update_one(
+            {"family": family, "size": size},
+            {"$push": {"spot_instance": {"date": date, "time": time, "os": os, "availability_zone": availability_zone, "price": price}}}
+        )
 
 
 
