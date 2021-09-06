@@ -21,10 +21,10 @@ os = "Windows"
 
 for region in REGIONS:
     mycol = mydb[region]
-    mydoc = mycol.aggregate([ { 
-    "$project": { "region": { "$concat": ["$region.endpoint", "-", "$region.zone"] }, "os": "$os", "price" : "$price"}}, 
-    {"$match":
-    {"os": os } } ])
+    mydoc = mycol.aggregate([ 
+        {"$match": {"os": os } },
+        {"$project": { "region": { "$concat": ["$region.endpoint", "-", "$region.zone"] },
+         "os": "$os", "price" : "$price"}} ])
     
     df1 = pd.DataFrame(list(mydoc))
 
