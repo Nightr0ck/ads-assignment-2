@@ -4,7 +4,15 @@ import matplotlib.pyplot as plt
 from globals import REGIONS
 
 db = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
-docs = db[REGIONS[3]].find({"$and": [{"instance_type.family": "m3"}, {"instance_type.size": "large"}, {"os": "Linux/UNIX"}, {"region.zone": "1a"}]}, {"price": 1, "timestamp": 1}).sort("timestamp", 1)
+
+# input data
+region = REGIONS[3]
+zone = "1a"
+family = "m3"
+size = "large"
+os = "Linux/UNIX"
+
+docs = db[region].find({"$and": [{"instance_type.family": family}, {"instance_type.size": size}, {"os": os}, {"region.zone": zone}]}, {"price": 1, "timestamp": 1}).sort("timestamp", 1)
 
 timestamp = []
 prices = []
@@ -27,4 +35,5 @@ plt.ylabel('Price')
 plt.title('Time-series Graph of AWS Spot Prices (M3 Large, Southeast 1a)')
 
 # function to show the plot
+plt.show()
 plt.savefig("test.png")
