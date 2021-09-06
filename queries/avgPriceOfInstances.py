@@ -1,6 +1,5 @@
 import pandas as pd
 import pymongo
-import matplotlib.pyplot as plt
 from globals import REGIONS
 
 
