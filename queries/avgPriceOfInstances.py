@@ -39,23 +39,26 @@ df = df.groupby("region").mean().reset_index()
 # rename the column name
 df = df.rename(columns={"region": "Region", "price": "Average Price"})
 
+print("Average price of Instances using " + os + " Operating System Across Different Regions")
+print(df)
+
 # set size for graph
-fig = plt.figure(figsize = (10, 5))
+#fig = plt.figure(figsize = (10, 5))
 
 # plot graph
-plt.bar(df["Region"], df["Average Price"], width = 0.4)
+#plt.bar(df["Region"], df["Average Price"], width = 0.4)
 
 # show x axis in vertical
-plt.xticks(rotation=90)
+#plt.xticks(rotation=90)
 
 # naming the x axis
-plt.xlabel("Region")
+#plt.xlabel("Region")
 
 # naming the y axis
-plt.ylabel("Average Price")
+#plt.ylabel("Average Price")
 
 # title of graph
-plt.title("Average price of Instances using " + os + " Operating System Across Different Regions")
+#plt.title("Average price of Instances using " + os + " Operating System Across Different Regions")
 
 # show graph
-plt.show()
+#plt.show()
