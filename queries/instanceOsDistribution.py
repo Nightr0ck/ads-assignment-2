@@ -14,16 +14,29 @@ mydb = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
 region = "ap_northeast_1"
 mycol = mydb[region]
 
-mydoc = mycol.find()
+# query os column only from mongodb
+mydoc = mycol.find({}, {"os": 1})
 
+# convert retrieved data to dataFrame
 df = pd.DataFrame(list(mydoc))
 
+# get frequency of instance
 df = df["os"].value_counts().rename_axis("OS").reset_index(name="Number of Instances")
 
+# set size for graph
 fig = plt.figure(figsize = (10, 5))
+
+# plot graph
 plt.bar(df["OS"], df["Number of Instances"], width = 0.4)
- 
+
+# naming the x axis 
 plt.xlabel("OS")
+
+# naming the y axis
 plt.ylabel("Number of Instances")
+
+# title of graph
 plt.title("Instance OS distribution in " + region)
+
+# show graph
 plt.show()
