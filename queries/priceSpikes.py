@@ -1,4 +1,5 @@
 import pymongo
+import matplotlib
 import matplotlib.pyplot as plt
 from globals import REGIONS
 
@@ -12,6 +13,8 @@ for doc in docs:
     timestamp.append(doc["timestamp"])
     prices.append(doc["price"])
 
+fig = plt.figure(figsize = (15, 5))
+
 # plotting the points
 plt.plot(timestamp, prices)
 
@@ -24,4 +27,4 @@ plt.ylabel('Price')
 plt.title('Time-series Graph of AWS Spot Prices (M3 Large, Southeast 1a)')
 
 # function to show the plot
-plt.show()
+plt.savefig("test.png")
