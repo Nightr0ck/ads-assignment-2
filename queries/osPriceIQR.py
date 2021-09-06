@@ -8,7 +8,7 @@ sys.path.append(parentdir)
 from globals import REGIONS
 
 db = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
-results = db[REGIONS[0]].find({"$and": [{"instance_type.family": "m4"}, {"instance_type.size": "16xlarge"}]}, {"price": 1})
+results = db[REGIONS[0]].find({"os": "Windows"}, {"price": 1})
 
 prices = []
 for result in results:
