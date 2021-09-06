@@ -28,8 +28,8 @@ else:
 if len(first_half) % 2 == 0:
     lower_quartile = (first_half[int(len(first_half) / 2)] + first_half[int(len(first_half) / 2) + 1]) / 2
     upper_quartile = (second_half[int(len(second_half) / 2)] + second_half[int(len(second_half) / 2) + 1]) / 2
-    print(lower_quartile, " - ",  upper_quartile)
+    print("Price range of a Spot instance running Windows in " + REGIONS[0] + ": ", lower_quartile, " - ",  upper_quartile)
 else:
     lower_quartile = first_half[int(len(first_half) / 2)]
     upper_quartile = second_half[int(len(second_half) / 2)]
-    print(lower_quartile, " - ",  upper_quartile)
+    print("Price range of a Spot instance running Windows in " + REGIONS[0] + ": ", lower_quartile, " - ",  upper_quartile)
