@@ -15,13 +15,17 @@ region = "ap_northeast_1"
 mycol = mydb[region]
 
 # query os column only from mongodb
-mydoc = mycol.find({}, {"os": 1})
+mydoc = mycol.aggregate([
+    {"$project": { "os": { "$concat": ["$os"] }}},
+    {"$group" : {"_id":"$os", "count":{"$sum":1}}},
+    {"$sort": { "count" : -1 }}
+])
 
 # convert retrieved data to dataFrame
 df = pd.DataFrame(list(mydoc))
 
-# get frequency of instance
-df = df["os"].value_counts().rename_axis("OS").reset_index(name="Number of Instances")
+# rename the columns name
+df = df.rename(columns={"_id": "OS", "count": "Number of Instances"})
 
 # set size for graph
 fig = plt.figure(figsize = (10, 5))
