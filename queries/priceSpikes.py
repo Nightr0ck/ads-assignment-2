@@ -1,6 +1,11 @@
 import pymongo
 import matplotlib
 import matplotlib.pyplot as plt
+
+import os, sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from globals import REGIONS
 
 db = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
