@@ -16,19 +16,19 @@ df = pd.DataFrame([])
 
 df1 = pd.DataFrame([])
 
+# input variable
+os = "Windows"
+
 for region in REGIONS:
     mycol = mydb[region]
     mydoc = mycol.aggregate([ { 
-    "$project": { "region": { "$concat": ["$region.endpoint", "-", "$region.zone"] }, "os": "$os", "price" : "$price"}}, {"$limit": 100} ])
+    "$project": { "region": { "$concat": ["$region.endpoint", "-", "$region.zone"] }, "os": "$os", "price" : "$price"}}, 
+    {"$match":
+    {"os": os } } ])
     
     df1 = pd.DataFrame(list(mydoc))
 
     df = df.append(df1)
-
-# input variable
-os = "Windows"
-
-df = df[df["os"] == os]
 
 df = df[["region", "price"]]
 
