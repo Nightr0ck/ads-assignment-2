@@ -10,7 +10,7 @@ mydb = myclient["aws_spot_by_region"]
 region = "ap_northeast_1"
 mycol = mydb[region]
 
-mydoc = mycol.find().limit(200)
+mydoc = mycol.find()
 
 df = pd.DataFrame(list(mydoc))
 
