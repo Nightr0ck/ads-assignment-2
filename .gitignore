@@ -10,3 +10,5 @@ data/us-east-1.csv
 data/sa-east-1.csv
 data/us-west-1.csv
 data/eu-central-1.csv
+__pycache__/globals.cpython-39.pyc
+queries/__pycache__/globals.cpython-39.pyc
