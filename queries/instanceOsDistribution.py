@@ -6,7 +6,7 @@ from globals import REGIONS
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["aws_spot_by_region"]
 
-
+# input variable
 region = "ap_northeast_1"
 mycol = mydb[region]
 
@@ -14,7 +14,7 @@ mydoc = mycol.find()
 
 df = pd.DataFrame(list(mydoc))
 
-df = df["os"].value_counts().rename_axis('OS').reset_index(name='Number of Instances')
+df = df["os"].value_counts().rename_axis("OS").reset_index(name="Number of Instances")
 
 fig = plt.figure(figsize = (10, 5))
 plt.bar(df["OS"], df["Number of Instances"], width = 0.4)
