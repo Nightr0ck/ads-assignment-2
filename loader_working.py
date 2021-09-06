@@ -36,4 +36,8 @@ for region in REGIONS:
     db[region].insert_many(data)
     print("inserted")
 
+    index = pymongo.IndexModel([("instance_type.family", pymongo.ASCENDING), ("instance_type.size", pymongo.ASCENDING), ("os", pymongo.ASCENDING), ("timestamp", pymongo.DESCENDING)])
+    print("creating indexes")
+    db[region].create_indexes([index])
+    print("indexed")
 #{"datetime": datetime object, instance_type:{{"family": family}, {"size", size}}, "os": os, "region":{{"endpoint": endpoint}, {"zone": zone}}, "price": price}
