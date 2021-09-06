@@ -2,7 +2,7 @@ import pandas as pd
 import pymongo
 from globals import REGIONS
 
-db = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot_by_region
+db = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
 #docs = db[REGIONS[6]].find({"$and": [{"instance_type.family": "m3"}, {"instance_type.size": "large"}]}, {"price": 1, "region.zone": 1})
 
 # input data
