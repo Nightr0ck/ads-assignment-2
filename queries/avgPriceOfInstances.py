@@ -31,6 +31,7 @@ df = df.groupby("region").mean().reset_index()
 
 df = df.rename(columns={"region": "Region", "price": "Average Price"})
 
+print("Average price of Instances using " + os + " Operating System Across Different Regions")
 print(df)
 
 
