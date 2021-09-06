@@ -8,8 +8,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 from globals import REGIONS
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["aws_spot_by_region"]
+mydb = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
 
 # input variable
 region = "ap_northeast_1"
