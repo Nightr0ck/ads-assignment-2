@@ -1,6 +1,7 @@
 import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import datetime, date
 
 import os, sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
@@ -12,13 +13,19 @@ db = pymongo.MongoClient("mongodb://localhost:27017/").aws_spot
 results = db[REGIONS[0]].find({"$and": [{"instance_type.family": "m4"}, {"instance_type.size": "16xlarge"}, {"os": "SUSE Linux"}]}, {"timestamp": 1, "price": 1})
 df = pd.DataFrame.from_records(results).drop(columns=["_id"])
 
-def hour(timestamp):
-    time = timestamp.split(" ")[1]
-    hour, minutes = time.split(":")[:2]
-    return int(hour) + ((int(minutes) / 60))
+latest_date = df["timestamp"].sort_values(ascending=False).iloc[0].date()
 
-df["time"] = df["timestamp"].apply(hour)
-df.drop(columns=["timestamp"], inplace=True)
+def get_date(timestamp):
+    return timestamp.date()
+
+def get_time(timestamp):
+    return timestamp.hour + (timestamp.minute / 60)
+
+df["date"] = df["timestamp"].apply(get_date)
+df = df[df["date"] == latest_date]
+
+df["time"] = df["timestamp"].apply(get_time)
+df.drop(columns=["date", "timestamp"], inplace=True)
 print(df)
 
 fig = plt.figure(figsize = (15, 5))
